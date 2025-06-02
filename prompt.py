@@ -1,11 +1,12 @@
 sentence_extraction_prompt = """
-You are given a medical document. Extract only relevant sentences under each category:
+You will be given a medical document. Extract only the relevant sentences for the following categories:
 - AML diagnosis
-- Precedent diseases (mention disease name and date)
-- Performance status (ECOG, KPS)
-- Mutational status (e.g., TP53, FLT3)
+- Precedent diseases
+- Performance status (ECOG or KPS)
+- Mutational status (TP53, FLT3, etc.)
 
-Output JSON format:
+Return ONLY valid JSON in this format — no explanation, no markdown, no comments:
+
 {
   "document_title": "<title>",
   "aml_diagnosis_sentences": [],
@@ -13,7 +14,10 @@ Output JSON format:
   "performance_status_sentences": [],
   "mutational_status_sentences": []
 }
+
+Do not add markdown syntax like ```json. Output must be pure JSON only.
 """
+
 
 field_extraction_prompt = """
 You are given pre-filtered sentences from a medical document. From them, extract structured information in this format:
