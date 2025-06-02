@@ -1,87 +1,64 @@
-import json
 import os
+import json
 import pandas as pd
 import re
-from utils import load_config, call_openai_with_functions
+import asyncio
+from utils import load_config, call_openai_api_async
 from prompts import sentence_extraction_prompt, field_extraction_prompt
-from schemas import sentence_extraction_schema, field_extraction_schema
 
-# Load config
 config = load_config()
 model = config['gpt_models']['model_gpt4o']
 
-# File paths
 input_file = "medicaldata.csv"
 sentence_output_file = "output/extracted_sentences.json"
 structured_output_file = "output/structured_data.json"
 
-# Create output directory
 os.makedirs("output", exist_ok=True)
 
-# Result containers
 sentence_results = []
 structured_results = []
 
-# JSON cleanup (optional)
 def clean_json_response(response: str):
     if not response or not isinstance(response, str):
         return ""
-    return re.sub(r'```(?:json)?\n?|\n?```', '', response).strip()
+    cleaned = re.sub(r'```(?:json)?\n?|\n?```', '', response).strip()
+    return cleaned
 
-# Read CSV input
-df = pd.read_csv(input_file)
+async def process_row(index, row):
+    title = row.get("title", "")
+    text = row.get("text", "")
 
-# Processing each row
-for index, row in df.iterrows():
-    title = row.get("title", "").strip()
-    text = row.get("text", "").strip()
+    print(f"[🔍 Step 1: Extracting sentences for]: {title}")
+    sentence_response = await call_openai_api_async(sentence_extraction_prompt + f"\n\n{text}", model)
+    cleaned_sentences = clean_json_response(sentence_response)
 
-    if not title or not text:
-        print(f"[⚠️ Skipping empty row at index {index}]")
-        continue
+    try:
+        sentence_json = json.loads(cleaned_sentences)
+        sentence_results.append(sentence_json)
+    except Exception as e:
+        print(f"[❌] Sentence parsing failed for {title}: {e}")
+        return
 
-    print(f"\n[🔍 Step 1: Extracting sentences for]: {title}")
+    print(f"[🧠 Step 2: Extracting fields for]: {title}")
+    field_response = await call_openai_api_async(field_extraction_prompt + f"\n\n{cleaned_sentences}", model)
+    cleaned_fields = clean_json_response(field_response)
 
-    # Step 1: Extract sentences
-    sentence_response = call_openai_with_functions(
-        model=model,
-        messages=[{"role": "user", "content": sentence_extraction_prompt + f"\n\n{text}"}],
-        functions=[sentence_extraction_schema],
-        function_call={"name": sentence_extraction_schema["name"]}
-    )
+    try:
+        structured_json = json.loads(cleaned_fields)
+        structured_results.append(structured_json)
+    except Exception as e:
+        print(f"[❌] Field parsing failed for {title}: {e}")
 
-    if not sentence_response:
-        print(f"[❌] Sentence extraction failed for {title}")
-        continue
+async def main():
+    df = pd.read_csv(input_file)
+    tasks = [process_row(index, row) for index, row in df.iterrows()]
+    await asyncio.gather(*tasks)
 
-    sentence_response["document_title"] = title
-    sentence_results.append(sentence_response)
+    with open(sentence_output_file, 'w', encoding='utf-8') as f:
+        json.dump(sentence_results, f, indent=2)
 
-    print(f"[🔍 Step 2: Extracting structured fields for]: {title}")
+    with open(structured_output_file, 'w', encoding='utf-8') as f:
+        json.dump(structured_results, f, indent=2)
 
-    # Step 2: Extract fields using extracted sentences
-    sentence_json_str = json.dumps(sentence_response)
-
-    field_response = call_openai_with_functions(
-        model=model,
-        messages=[{"role": "user", "content": field_extraction_prompt + f"\n\n{sentence_json_str}"}],
-        functions=[field_extraction_schema],
-        function_call={"name": field_extraction_schema["name"]}
-    )
-
-    if not field_response:
-        print(f"[❌] Field extraction failed for {title}")
-        continue
-
-    field_response["document_title"] = title
-    structured_results.append(field_response)
-
-# Save all extracted sentence results
-with open(sentence_output_file, 'w', encoding='utf-8') as f:
-    json.dump(sentence_results, f, indent=2)
-
-# Save all structured data results
-with open(structured_output_file, 'w', encoding='utf-8') as f:
-    json.dump(structured_results, f, indent=2)
-
-print("\n✅ Extraction complete. Output saved in 'output/' folder.")
+if __name__ == "__main__":
+    asyncio.run(main())
