@@ -14,6 +14,126 @@ C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Scripts\python.exe C:\Us
   "performance_status_sentences": [],
   "mutational_status_sentences": []
 }
+ from the above extracted sentence i need u to get extract the req feilds data like this 
+[
+    {
+        "document_title": "bfad7df253_41044_ Assessment & Plan Note_d79e7b504e",
+        "aml_diagnosis_date": {
+            "value": "",
+            "evidence": ""
+        },
+        "precedent_disease": [
+            {
+                "name": "breast cancer",
+                "date": "09/01/2009",
+                "evidence": "In September 2009, the patient had a lumpectomy in her right breast. This showed stage I breast cancer."
+            },
+            {
+                "name": "colon cancer",
+                "date": "12/01/2005",
+                "evidence": "She had a colectomy in December 2005 and adjuvant chemotherapy and radiation."
+            },
+            {
+                "name": "papillary thyroid carcinoma",
+                "date": "01/01/2002",
+                "evidence": "This was in 2002. The patient was treated with thyroidectomy and radioactive iodine."
+            }
+        ],
+        "performance_status": {
+            "ecog_score": {
+                "value": "",
+                "date": "",
+                "evidence": ""
+            },
+            "kps_score": {
+                "value": "",
+                "date": "",
+                "evidence": ""
+            }
+        },
+        "mutational_status": {
+            "NPM1": {
+                "status": "",
+                "date": "",
+                "evidence": ""
+            },
+            "RUNX1": {
+                "status": "",
+                "date": "",
+                "evidence": ""
+            },
+            "TP53": {
+                "status": "",
+                "date": "",
+                "evidence": ""
+            },
+            "FLT3": {
+                "status": "",
+                "date": "",
+                "evidence": ""
+            },
+            "ASXL1": {
+                "status": "",
+                "date": "",
+                "evidence": ""
+            }
+        }
+    },
+    {
+        "document_title": "bfad7df253_44199_ Unmapped_189debb3b9",
+        "aml_diagnosis_date": {
+            "value": "01/04/yyyy",
+            "evidence": "He underwent bone marrow biopsy on 1/4 which showed AML with monocytic differentiation (73% blasts)"
+        },
+        "precedent_disease": [
+            {
+                "name": "Increased creatinine",
+                "date": "09/2020",
+                "evidence": "Creatinine was 1.4 on presentation, increased from 1.26 in 9/2020"
+            }
+        ],
+        "performance_status": {
+            "ecog_score": {
+                "value": "",
+                "date": "",
+                "evidence": ""
+            },
+            "kps_score": {
+                "value": "",
+                "date": "",
+                "evidence": ""
+            }
+        },
+        "mutational_status": {
+            "NPM1": {
+                "status": "mutated",
+                "date": "",
+                "evidence": "NPM1 Type A mutation 40%"
+            },
+            "RUNX1": {
+                "status": "",
+                "date": "",
+                "evidence": ""
+            },
+            "TP53": {
+                "status": "",
+                "date": "",
+                "evidence": ""
+            },
+            "FLT3": {
+                "status": "",
+                "date": "",
+                "evidence": ""
+            },
+            "ASXL1": {
+                "status": "",
+                "date": "",
+                "evidence": ""
+            }
+        }
+    },
+
+
 ```
 [Step 2: Extracting fields for]: bfad7df253_41044_ Assessment & Plan Note_d79e7b504e
 
