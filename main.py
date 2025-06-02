@@ -29,7 +29,10 @@ def clean_json_response(response: str):
     return cleaned
 
 def call_openai_with_function(text, model, function_schema):
-    custom_http_client = httpx.Client(verify=False)
+    from openai import AzureOpenAI
+    openai_config = load_config()
+
+    custom_http_client = httpx.Client(verify=False, timeout=60.0)  # ⬅️ Set 60s timeout
 
     client = AzureOpenAI(
         api_key=openai_config["azure_openai"]["api_key"],
@@ -42,14 +45,8 @@ def call_openai_with_function(text, model, function_schema):
         response = client.chat.completions.create(
             model=model,
             messages=[
-                {
-                    "role": "system",
-                    "content": "You are an expert cancer data analyst. Extract structured cancer patient details from clinical notes in JSON format using the provided schema. Be accurate and do not guess missing data."
-                },
-                {
-                    "role": "user",
-                    "content": text
-                }
+                {"role": "system", "content": "You are a medical data analyst extracting structured cancer patient data from clinical text."},
+                {"role": "user", "content": text}
             ],
             functions=function_schema,
             function_call={"name": "extract_cancer_patient_data"}
@@ -58,6 +55,7 @@ def call_openai_with_function(text, model, function_schema):
     except Exception as e:
         print("❌ Function calling failed:", e)
         return None
+
 
 # Read input data
 df = pd.read_csv(input_file, encoding='utf-8')
