@@ -1,11 +1,12 @@
 sentence_extraction_prompt = """
-You will be given a medical document. Extract the **relevant sentences only** for each of the following categories:
-- AML diagnosis
-- Precedent diseases
-- Performance status (ECOG, KPS)
-- Mutational status (e.g., NPM1, TP53)
+You are an expert medical assistant. Given a clinical note, extract relevant sentences for the following:
 
-Output must be in JSON format as:
+1. AML diagnosis
+2. Precedent diseases
+3. Performance status (ECOG or KPS scores)
+4. Mutational status (NPM1, TP53, FLT3, etc.)
+
+Format:
 {
   "document_title": "",
   "aml_diagnosis_sentences": [],
@@ -16,10 +17,9 @@ Output must be in JSON format as:
 """
 
 field_extraction_prompt = """
-You will receive grouped sentences relevant to a patient's cancer data.
-From these, extract the following fields:
+You will receive categorized clinical sentences. From this, extract structured patient cancer information.
 
-Return the output in this format:
+Format:
 {
   "document_title": "",
   "aml_diagnosis_date": {"value": "", "evidence": ""},
@@ -32,10 +32,23 @@ Return the output in this format:
   },
   "mutational_status": {
     "NPM1": {"status": "", "date": "", "evidence": ""},
-    "RUNX1": {"status": "", "date": "", "evidence": ""},
     "TP53": {"status": "", "date": "", "evidence": ""},
-    "FLT3": {"status": "", "date": "", "evidence": ""},
-    "ASXL1": {"status": "", "date": "", "evidence": ""}
-  }
+    "FLT3": {"status": "", "date": "", "evidence": ""}
+  },
+  "patient_age": "",
+  "gender": "",
+  "disease_stage": "",
+  "treatment_plan": "",
+  "response_to_treatment": "",
+  "relapse_status": "",
+  "cytogenetic_profile": "",
+  "bone_marrow_blast_percentage": "",
+  "hemoglobin_level": "",
+  "wbc_count": "",
+  "platelet_count": "",
+  "ldh_level": ""
 }
 """
+---
+
+Let me know when you want me to export these as individual files — or continue here. ​:contentReference[oaicite:0]{index=0}​
