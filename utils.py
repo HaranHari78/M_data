@@ -1,29 +1,27 @@
 import configparser
 import httpx
-from openai import AzureOpenAI
+from openai import AsyncAzureOpenAI
 
 def load_config():
     config = configparser.ConfigParser()
-    config.read('config.ini')
+    config.read("config.ini")
     return config
 
-async def call_openai_api_async(prompt, model):
+async def async_openai_chat(prompt, model):
     config = load_config()
-
-    async with httpx.AsyncClient(verify=False, timeout=60.0) as http_client:
-        client = AzureOpenAI(
-            api_key=config["azure_openai"]["api_key"],
-            api_version=config["azure_openai"]["api_version"],
-            azure_endpoint=config["azure_openai"]["endpoint"],
-            http_client=http_client,
+    client = AsyncAzureOpenAI(
+        api_key=config["azure_openai"]["api_key"],
+        api_version=config["azure_openai"]["api_version"],
+        azure_endpoint=config["azure_openai"]["endpoint"],
+        http_client=httpx.AsyncClient(verify=False)
+    )
+    try:
+        response = await client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.2
         )
-
-        try:
-            response = await client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": prompt}]
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            print("[❌] OpenAI API error:", e)
-            return None
+        return response.choices[0].message.content
+    except Exception as e:
+        print("❌ Async OpenAI API call failed:", e)
+        return None
