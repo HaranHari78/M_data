@@ -1,6 +1,8 @@
 import json
 import re
+import os
 import pandas as pd
+import httpx
 from prompts import sentence_extraction_prompt
 from schemas import function_schema
 from utils import load_config, call_openai_api
@@ -9,8 +11,15 @@ from utils import load_config, call_openai_api
 openai_config = load_config()
 model = openai_config['gpt_models']['model_gpt4o']
 input_file = r"C:\Users\HariharaM12\Downloads\medicaldata.csv"
-sentence_output_file = 'extracted_sentences.json'
-structured_output_file = 'structured_data.json'
+
+# Output folder and files
+output_dir = 'output'
+sentence_output_file = os.path.join(output_dir, 'extracted_sentences.json')
+structured_output_file = os.path.join(output_dir, 'structured_data.json')
+
+# Create output directory if it doesn't exist
+os.makedirs(output_dir, exist_ok=True)
+
 sentence_results = []
 structured_results = []
 
@@ -24,15 +33,13 @@ def clean_json_response(response: str):
 def call_openai_with_function(text, model, function_schema):
     from openai import AzureOpenAI
     openai_config = load_config()
-
-    # ✅ FIX: Use the same custom client from utils.py
     custom_http_client = httpx.Client(verify=False)
 
     client = AzureOpenAI(
         api_key=openai_config["azure_openai"]["api_key"],
         api_version=openai_config["azure_openai"]["api_version"],
         azure_endpoint=openai_config["azure_openai"]["endpoint"],
-        http_client=custom_http_client  # ✅ ADD THIS
+        http_client=custom_http_client
     )
 
     try:
@@ -67,11 +74,12 @@ for index, row in df.iterrows():
     if not text:
         continue
 
-    # Step 1 - Sentence extraction
+    # Step 1 - Extract relevant sentences
     prompt1 = sentence_extraction_prompt(title, text)
     sentence_response = call_openai_api(prompt1, model)
     if not sentence_response:
         continue
+
     cleaned_sentence_response = clean_json_response(sentence_response)
     try:
         extracted_sentences = json.loads(cleaned_sentence_response)
@@ -80,7 +88,7 @@ for index, row in df.iterrows():
         print("⚠️ Error decoding sentence extraction.")
         continue
 
-    # Step 2 - Function Calling Extraction
+    # Step 2 - Combine extracted sentences for structured data
     combined_sentences = ". ".join(
         extracted_sentences.get('aml_diagnosis_sentences', []) +
         extracted_sentences.get('precedent_disease_sentences', []) +
@@ -88,6 +96,7 @@ for index, row in df.iterrows():
         extracted_sentences.get('mutational_status_sentences', [])
     )
 
+    # Step 3 - Structured field extraction using function calling
     structured_json = call_openai_with_function(combined_sentences, model, function_schema)
     if not structured_json:
         continue
@@ -107,4 +116,6 @@ with open(sentence_output_file, 'w', encoding='utf-8') as f:
 with open(structured_output_file, 'w', encoding='utf-8') as f:
     json.dump(structured_results, f, indent=4)
 
-print("\n✅ Data saved successfully.")
+print("\n✅ Data saved to output files")
+print(f"📝 Sentence results saved to: {sentence_output_file} ({len(sentence_results)} records)")
+print(f"📝 Structured results saved to: {structured_output_file} ({len(structured_results)} records)")
