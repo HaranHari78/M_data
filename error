@@ -79,11 +79,17 @@ C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Scripts\python.exe C:\Us
             }
         }
     },
-   Traceback (most recent call last):
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\main.py", line 37, in <module>
-    sentence_response = call_openai_with_functions(
-        model=model,
-    ...<2 lines>...
-        function_call=sentence_function_call
-    )
-TypeError: call_openai_with_functions() got an unexpected keyword argument 'prompt'
+[🔍 Step 1: Extracting sentences for]: bfad7df253_41044_ Assessment & Plan Note_d79e7b504e
+[🔍 Step 2: Extracting structured fields for]: bfad7df253_41044_ Assessment & Plan Note_d79e7b504e
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44199_ Unmapped_189debb3b9
+[🔍 Step 2: Extracting structured fields for]: bfad7df253_44199_ Unmapped_189debb3b9
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44201_ Unmapped_4f6ff4916a
+[🔍 Step 2: Extracting structured fields for]: bfad7df253_44201_ Unmapped_4f6ff4916a
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44202_ Unmapped_56a668e41c
+[🔍 Step 2: Extracting structured fields for]: bfad7df253_44202_ Unmapped_56a668e41c
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44202_ Unmapped_3848687338
+[🔍 Step 2: Extracting structured fields for]: bfad7df253_44202_ Unmapped_3848687338
