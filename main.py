@@ -22,12 +22,17 @@ def clean_json_response(response: str):
     return cleaned
 
 def call_openai_with_function(text, model, function_schema):
-    from openai import AzureOpenAI  # Avoid changing utils
+    from openai import AzureOpenAI
     openai_config = load_config()
+
+    # ✅ FIX: Use the same custom client from utils.py
+    custom_http_client = httpx.Client(verify=False)
+
     client = AzureOpenAI(
         api_key=openai_config["azure_openai"]["api_key"],
         api_version=openai_config["azure_openai"]["api_version"],
-        azure_endpoint=openai_config["azure_openai"]["endpoint"]
+        azure_endpoint=openai_config["azure_openai"]["endpoint"],
+        http_client=custom_http_client  # ✅ ADD THIS
     )
 
     try:
