@@ -1,13 +1,14 @@
+C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Scripts\python.exe C:\Users\HariharaM12\PycharmProjects\Medi_Extract\main.py 
+
 [🔍 Analyzing]: bfad7df253_41044_ Assessment & Plan Note_d79e7b504e...
 ```json
 {
   "document_title": "bfad7df253_41044_ Assessment & Plan Note_d79e7b504e",
   "aml_diagnosis_sentences": [],
   "precedent_disease_sentences": [
-    "The patient has a history of breast cancer, colon cancer, and papillary thyroid carcinoma.",
-    "In September 2009, the patient had a lumpectomy in her right breast.",
-    "She had a colectomy in December 2005 and adjuvant chemotherapy and radiation.",
-    "Papillary thyroid carcinoma was in 2002."
+    "Breast cancer. In September 2009, the patient had a lumpectomy in her right breast.",
+    "History of colon cancer, this was stage III. She had a colectomy in December 2005 and adjuvant chemotherapy and radiation.",
+    "Papillary thyroid carcinoma. This was in 2002. The patient was treated with thyroidectomy and radioactive iodine."
   ],
   "performance_status_sentences": [],
   "mutational_status_sentences": []
@@ -22,7 +23,7 @@
     "He underwent bone marrow biopsy on 1/4 which showed AML with monocytic differentiation (73% blasts) and was subsequently started on aza/ven on 1/5."
   ],
   "precedent_disease_sentences": [
-    "Adalid Beckmann is a 56yo man with hypertension who presented to Muncie Eye Specialitsts Surgery Center with a 1 week history of fatigue, myalgias, and generalized weakness as well as an episode of fever to 103."
+    "Creatinine was 1.4 on presentation, increased from 1.26 in 9/2020."
   ],
   "performance_status_sentences": [],
   "mutational_status_sentences": [
@@ -40,7 +41,7 @@
     "S/p bone marrow biopsy on 1/4 which showed AML with monocytic differentiation (73% blasts)."
   ],
   "precedent_disease_sentences": [
-    "Artie Mcintyre is a 59 y.o. male with hypertension who presented to Houston Urologic Surgicenter LLC with fatigue and fever and was found to have leukocytosis to 40,000 and diagnosed with AML via bone marrow biopsy."
+    "Artie Mcintyre is a 59 y.o. male with hypertension who presented to Houston Urologic Surgicenter LLC with fatigue and fever."
   ],
   "performance_status_sentences": [],
   "mutational_status_sentences": []
@@ -58,6 +59,7 @@
 }
 ```
 
+
 [🔍 Analyzing]: bfad7df253_44202_ Unmapped_3848687338...
 ```json
 {
@@ -66,50 +68,9 @@
     "Jaylenn Altier is a 58 y.o. male with hypertension who presented to Parkview Hospital with fatigue and fever and was found to have leukocytosis to 40,000 and diagnosed with AML via bone marrow biopsy.",
     "S/p bone marrow biopsy on 1/4 which showed AML with monocytic differentiation (73% blasts)."
   ],
-  "precedent_disease_sentences": [
-    "Jaylenn Altier is a 58 y.o. male with hypertension who presented to Parkview Hospital with fatigue and fever and was found to have leukocytosis to 40,000 and diagnosed with AML via bone marrow biopsy."
-  ],
-  "performance_status_sentences": [],
-  "mutational_status_sentences": []
-}
-```
-
-[🔍 Analyzing]: bfad7df253_44202_ Unmapped_ac43eb9899...
-```json
-{
-  "document_title": "bfad7df253_44202_ Unmapped_ac43eb9899",
-  "aml_diagnosis_sentences": [
-    "Mr.Vangieson is a 26 y.o. male with AML who I am counseling today on initiation of therapy."
-  ],
   "precedent_disease_sentences": [],
   "performance_status_sentences": [],
   "mutational_status_sentences": []
 }
 ```
 
-[🔍 Analyzing]: bfad7df253_44203_ Unmapped_0a0a3c5a51...
-```json
-{
-  "document_title": "bfad7df253_44203_ Unmapped_0a0a3c5a51",
-  "aml_diagnosis_sentences": [
-    "Dr. Irine Seal is a 68 y.o. male without prior known cardiac history, hypertension who presented with fevers, fatigue, malaise found to have AML for which aza/venetoclax was initiated.",
-    "Dr. Mareo Portilla is a 34 y.o. male without prior known cardiac history, hypertension who presented with fevers, fatigue, malaise found to have AML for which aza/venetoclax was initiated."
-  ],
-  "precedent_disease_sentences": [
-    "Recent Pertinent CV Labs: No results found for: CKTOTAL, CKMB, CKMBINDEX, TROPONINI"
-  ],
-  "performance_status_sentences": [],
-  "mutational_status_sentences": []
-}
-```
-
-[🔍 Analyzing]: bfad7df253_44203_ Unmapped_f372a1a0b5...
-```json
-{
-  "document_title": "bfad7df253_44203_ Unmapped_f372a1a0b5",
-  "aml_diagnosis_sentences": [],
-  "precedent_disease_sentences": [],
-  "performance_status_sentences": [],
-  "mutational_status_sentences": []
-}
-```
