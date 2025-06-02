@@ -1,78 +1,115 @@
-Traceback (most recent call last):
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\main.py", line 74, in <module>
-    structured_json = call_openai_with_function(text, model, function_schema)
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\main.py", line 42, in call_openai_with_function
-    response = client.chat.completions.create(
-        model=model,
-    ...<11 lines>...
-        function_call={"name": "extract_cancer_patient_data"}
-    )
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\openai\_utils\_utils.py", line 287, in wrapper
-    return func(*args, **kwargs)
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 925, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<43 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\openai\_base_client.py", line 1239, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\openai\_base_client.py", line 969, in request
-    response = self._client.send(
-        request,
-        stream=stream or self._should_stream_response_body(request=request),
-        **kwargs,
-    )
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpx\_client.py", line 914, in send
-    response = self._send_handling_auth(
-        request,
-    ...<2 lines>...
-        history=[],
-    )
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
-    response = self._send_handling_redirects(
-        request,
-        follow_redirects=follow_redirects,
-        history=history,
-    )
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
-    response = self._send_single_request(request)
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
-    response = transport.handle_request(request)
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
-    resp = self._pool.handle_request(req)
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
-    raise exc from None
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
-    response = connection.handle_request(
-        pool_request.request
-    )
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpcore\_sync\connection.py", line 103, in handle_request
-    return self._connection.handle_request(request)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpcore\_sync\http11.py", line 136, in handle_request
-    raise exc
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpcore\_sync\http11.py", line 106, in handle_request
-    ) = self._receive_response_headers(**kwargs)
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpcore\_sync\http11.py", line 177, in _receive_response_headers
-    event = self._receive_event(timeout=timeout)
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpcore\_sync\http11.py", line 217, in _receive_event
-    data = self._network_stream.read(
-        self.READ_NUM_BYTES, timeout=timeout
-    )
-  File "C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Lib\site-packages\httpcore\_backends\sync.py", line 128, in read
-    return self._sock.recv(max_bytes)
-           ~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "C:\Program Files\Python313\Lib\ssl.py", line 1285, in recv
-    return self.read(buflen)
-           ~~~~~~~~~^^^^^^^^
-  File "C:\Program Files\Python313\Lib\ssl.py", line 1140, in read
-    return self._sslobj.read(len)
-           ~~~~~~~~~~~~~~~~~^^^^^
-KeyboardInterrupt
+C:\Users\HariharaM12\PycharmProjects\Medi_Extract\.venv\Scripts\python.exe C:\Users\HariharaM12\PycharmProjects\Medi_Extract\main.py 
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_41044_ Assessment & Plan Note_d79e7b504e
+```json
+{
+  "document_title": "bfad7df253_41044_ Assessment & Plan Note_d79e7b504e",
+  "aml_diagnosis_sentences": [],
+  "precedent_disease_sentences": [
+    "Breast cancer. In September 2009, the patient had a lumpectomy in her right breast.",
+    "She did have adjuvant chemotherapy with Taxotere and Cytoxan and she is now undergoing radiation.",
+    "History of colon cancer, this was stage III. She had a colectomy in December 2005 and adjuvant chemotherapy and radiation.",
+    "Papillary thyroid carcinoma. This was in 2002. The patient was treated with thyroidectomy and radioactive iodine."
+  ],
+  "performance_status_sentences": [],
+  "mutational_status_sentences": []
+}
+```
+[Step 2: Extracting fields for]: bfad7df253_41044_ Assessment & Plan Note_d79e7b504e
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44199_ Unmapped_189debb3b9
+```json
+{
+  "document_title": "bfad7df253_44199_ Unmapped_189debb3b9",
+  "aml_diagnosis_sentences": [
+    "He underwent bone marrow biopsy on 1/4 which showed AML with monocytic differentiation (73% blasts) and was subsequently started on aza/ven on 1/5."
+  ],
+  "precedent_disease_sentences": [],
+  "performance_status_sentences": [],
+  "mutational_status_sentences": [
+    "Prelim cytogenetic analysis is normal w/ molectular profile demonstrating: DNMT3A R882C 44% IDH1 R132G 41% NPM1 Type A mutation 40% NRAS G13R 40%."
+  ]
+}
+```
+[Step 2: Extracting fields for]: bfad7df253_44199_ Unmapped_189debb3b9
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44201_ Unmapped_4f6ff4916a
+```json
+{
+  "document_title": "bfad7df253_44201_ Unmapped_4f6ff4916a",
+  "aml_diagnosis_sentences": [
+    "Artie Mcintyre is a 59 y.o. male with hypertension who presented to Houston Urologic Surgicenter LLC with fatigue and fever and was found to have leukocytosis to 40,000 and diagnosed with AML via bone marrow biopsy.",
+    "S/p bone marrow biopsy on 1/4 which showed AML with monocytic differentiation (73% blasts)."
+  ],
+  "precedent_disease_sentences": [],
+  "performance_status_sentences": [],
+  "mutational_status_sentences": []
+}
+```
+[Step 2: Extracting fields for]: bfad7df253_44201_ Unmapped_4f6ff4916a
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44202_ Unmapped_56a668e41c
+```json
+{
+  "document_title": "bfad7df253_44202_ Unmapped_56a668e41c",
+  "aml_diagnosis_sentences": [],
+  "precedent_disease_sentences": [],
+  "performance_status_sentences": [],
+  "mutational_status_sentences": []
+}
+```
+[Step 2: Extracting fields for]: bfad7df253_44202_ Unmapped_56a668e41c
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44202_ Unmapped_3848687338
+```json
+{
+  "document_title": "bfad7df253_44202_ Unmapped_3848687338",
+  "aml_diagnosis_sentences": [
+    "Jaylenn Altier is a 58 y.o. male with hypertension who presented to Parkview Hospital with fatigue and fever and was found to have leukocytosis to 40,000 and diagnosed with AML via bone marrow biopsy.",
+    "S/p bone marrow biopsy on 1/4 which showed AML with monocytic differentiation (73% blasts)."
+  ],
+  "precedent_disease_sentences": [],
+  "performance_status_sentences": [],
+  "mutational_status_sentences": []
+}
+```
+[Step 2: Extracting fields for]: bfad7df253_44202_ Unmapped_3848687338
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44202_ Unmapped_ac43eb9899
+```json
+{
+  "document_title": "bfad7df253_44202_ Unmapped_ac43eb9899",
+  "aml_diagnosis_sentences": [
+    "Mr.Vangieson is a 26 y.o. male with AML who I am counseling today on initiation of therapy."
+  ],
+  "precedent_disease_sentences": [],
+  "performance_status_sentences": [],
+  "mutational_status_sentences": []
+}
+```
+[Step 2: Extracting fields for]: bfad7df253_44202_ Unmapped_ac43eb9899
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44203_ Unmapped_0a0a3c5a51
+```json
+{
+  "document_title": "bfad7df253_44203_ Unmapped_0a0a3c5a51",
+  "aml_diagnosis_sentences": [
+    "Dr. Irine Seal is a 68 y.o. male without prior known cardiac history, hypertension who presented with fevers, fatigue, malaise found to have AML for which aza/venetoclax was initiated."
+  ],
+  "precedent_disease_sentences": [],
+  "performance_status_sentences": [],
+  "mutational_status_sentences": []
+}
+```
+[Step 2: Extracting fields for]: bfad7df253_44203_ Unmapped_0a0a3c5a51
+
+[🔍 Step 1: Extracting sentences for]: bfad7df253_44203_ Unmapped_f372a1a0b5
+```json
+{
+  "document_title": "bfad7df253_44203_ Unmapped_f372a1a0b5",
+  "aml_diagnosis_sentences": [],
+  "precedent_disease_sentences": [],
+  "performance_status_sentences": [],
+  "mutational_status_sentences": []
+}
+```
