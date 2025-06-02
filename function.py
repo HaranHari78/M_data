@@ -1,14 +1,11 @@
-# schemas.py
-
 function_schema = [
     {
         "name": "extract_cancer_patient_data",
-        "description": "Extract structured cancer patient data from clinical notes. Include diagnosis, prior disease history, mutation profile, treatment details, and other relevant oncology metrics.",
+        "description": "Extract structured cancer patient data including diagnosis, mutations, staging, treatment, and lab values.",
         "parameters": {
             "type": "object",
             "properties": {
                 "document_title": {"type": "string"},
-
                 "aml_diagnosis_date": {
                     "type": "object",
                     "properties": {
@@ -16,7 +13,6 @@ function_schema = [
                         "evidence": {"type": "string"}
                     }
                 },
-
                 "precedent_disease": {
                     "type": "array",
                     "items": {
@@ -28,7 +24,6 @@ function_schema = [
                         }
                     }
                 },
-
                 "performance_status": {
                     "type": "object",
                     "properties": {
@@ -50,7 +45,6 @@ function_schema = [
                         }
                     }
                 },
-
                 "mutational_status": {
                     "type": "object",
                     "properties": {
@@ -61,8 +55,6 @@ function_schema = [
                         "ASXL1": {"type": "object", "properties": {"status": {"type": "string"}, "date": {"type": "string"}, "evidence": {"type": "string"}}}
                     }
                 },
-
-                // 🔽 Additional Cancer-Related Fields
                 "patient_age": {"type": "string"},
                 "gender": {"type": "string"},
                 "disease_stage": {"type": "string"},
