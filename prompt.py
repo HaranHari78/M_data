@@ -1,27 +1,41 @@
-def sentence_extraction_prompt(title, text):
-    return f"""
-You are analyzing a clinical note for an AML (acute myeloid leukemia) patient.
-Extract only the sentences that contain strong evidence for the following categories:
+sentence_extraction_prompt = """
+You will be given a medical document. Extract the **relevant sentences only** for each of the following categories:
+- AML diagnosis
+- Precedent diseases
+- Performance status (ECOG, KPS)
+- Mutational status (e.g., NPM1, TP53)
 
-1. AML Diagnosis Date
-2. Precedent Disease (name + date)
-3. Performance Status at Baseline:
-   - ECOG (0–4) or KPS score with date
-4. Mutational Status (genes: NPM1, RUNX1, TP53, FLT3, ASXL1)
-
-Document Title: {title}
-
-Text:
-{text}
-
-Return a JSON in the format:
-{{
-  "document_title": "{title}",
+Output must be in JSON format as:
+{
+  "document_title": "",
   "aml_diagnosis_sentences": [],
   "precedent_disease_sentences": [],
   "performance_status_sentences": [],
   "mutational_status_sentences": []
-}}
+}
+"""
 
-Only include sentences that clearly contain the relevant evidence.
+field_extraction_prompt = """
+You will receive grouped sentences relevant to a patient's cancer data.
+From these, extract the following fields:
+
+Return the output in this format:
+{
+  "document_title": "",
+  "aml_diagnosis_date": {"value": "", "evidence": ""},
+  "precedent_disease": [
+    {"name": "", "date": "", "evidence": ""}
+  ],
+  "performance_status": {
+    "ecog_score": {"value": "", "date": "", "evidence": ""},
+    "kps_score": {"value": "", "date": "", "evidence": ""}
+  },
+  "mutational_status": {
+    "NPM1": {"status": "", "date": "", "evidence": ""},
+    "RUNX1": {"status": "", "date": "", "evidence": ""},
+    "TP53": {"status": "", "date": "", "evidence": ""},
+    "FLT3": {"status": "", "date": "", "evidence": ""},
+    "ASXL1": {"status": "", "date": "", "evidence": ""}
+  }
+}
 """
